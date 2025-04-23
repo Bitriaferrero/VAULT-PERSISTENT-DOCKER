@@ -1,0 +1,3 @@
+|-- docker-compose.yml
+|-- vault-config
+|   `-- config.hcl
