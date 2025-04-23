@@ -16,3 +16,57 @@ Added data persistence functionality:
     |-- core  [error opening dir]
     |-- logical  [error opening dir]
     `-- sys  [error opening dir]
+
+Paso 1: Habilitar el Secret Engine 
+vault secrets enable -path=secret kv
+Esto habilita el motor KV en la ruta secret/ (como cuando usás la interfaz web).
+
+
+Paso 2: Guardar una contraseña (KV v2)
+Por defecto, Vault habilita el secret engine como KV versión 2, 
+así que tienes que usar el formato correcto para guardar datos.
+
+vault kv put secret/mi-app2 password="contraseña-remota"
+
+Paso 3: Leer una contraseña
+vault kv get secret/mi-app2
+
+Verificación
+Querés estar seguro de que el path secret/ es v2:
+
+vault secrets list -detailed
+
+Si da ERROR 403.
+
+Asegurate de estar usando el root token, no uno restringido.
+
+Podés verificar tu identidad y permisos con
+
+vault token lookup
+
+Mostrar listas de secretos
+vault secrets list -detailed
+
+
+
+
+
+
+COMPROBACION
+  curl http://localhost:8200/v1/sys/health
+  REMOTO:
+  curl -s \
+  -H "X-Vault-Token: mi-token-root" \
+  http://ip:8200/v1/secret/data/mi-app | jq .data.data
+  
+  COMANDOS
+  ----------------------
+  # Escribir un secreto
+  vault kv put secret/mi-app password="contraseña-remota"
+  # Leerlo
+  vault kv get secret/mi-app
+  INSTALAR PAQUETE
+  sudo pacman -S vault  # Instala la CLI oficial 
+  INICIALIZAR
+  ---------------------
+  docker exec -it vault vault status
