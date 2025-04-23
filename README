@@ -7,8 +7,12 @@ Docker improvements to:
 https://github.com/jmlcas/vault/blob/main/docker-compose.yaml
 Added data persistence functionality:
 
-_________________________
--- docker-compose.yml
--- vault-config
-   `-- config.hcl
-_________________________
+
+|-- docker-compose.yml
+|-- unseal.sh
+|-- vault-config
+|   `-- config.hcl
+`-- vault-data                           # The vault_data directory has the persistent data
+    |-- core  [error opening dir]
+    |-- logical  [error opening dir]
+    `-- sys  [error opening dir]
