@@ -1,3 +1,14 @@
-|-- docker-compose.yml
-|-- vault-config
-|   `-- config.hcl
+Millora del docker de:  
+https://github.com/jmlcas/vault/blob/main/docker-compose.yaml
+Afegida la funcionalitat de persistència de dades:
+
+
+Docker improvements to: 
+https://github.com/jmlcas/vault/blob/main/docker-compose.yaml
+Added data persistence functionality:
+
+_________________________
+-- docker-compose.yml
+-- vault-config
+   `-- config.hcl
+_________________________
