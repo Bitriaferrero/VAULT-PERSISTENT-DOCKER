@@ -17,6 +17,20 @@ Added data persistence functionality:
     |-- logical  [error opening dir]
     `-- sys  [error opening dir]
 
+
+INICIALIZANDO 
+Cuando accedas por primera vez, necesitarás inicializar Vault y guardar las claves:
+
+1- docker exec -it vault vault operator init
+# Guarda las claves y tokens que te da, ¡no se pueden recuperar luego!
+
+
+2- docker exec -it vault vault operator unseal
+# Haz esto con 3 de las 5 claves que te dio init
+
+
+ACCESO REMOTO:
+
 Paso 1: Habilitar el Secret Engine 
 vault secrets enable -path=secret kv
 Esto habilita el motor KV en la ruta secret/ (como cuando usás la interfaz web).
@@ -49,24 +63,14 @@ vault secrets list -detailed
 
 
 
-
-
-
-COMPROBACION
+COMPROBACIONES
   curl http://localhost:8200/v1/sys/health
   REMOTO:
   curl -s \
   -H "X-Vault-Token: mi-token-root" \
   http://ip:8200/v1/secret/data/mi-app | jq .data.data
   
-  COMANDOS
-  ----------------------
-  # Escribir un secreto
-  vault kv put secret/mi-app password="contraseña-remota"
-  # Leerlo
-  vault kv get secret/mi-app
-  INSTALAR PAQUETE
-  sudo pacman -S vault  # Instala la CLI oficial 
+ 
   INICIALIZAR
   ---------------------
   docker exec -it vault vault status
